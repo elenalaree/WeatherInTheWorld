@@ -20,25 +20,47 @@ header {
     border-radius: 4px;
     
 }
-.btn {
+.red{
+    background-color: rgba(255, 0, 0, .5);
+}
+.button {
     display: block;
     width: 100%;
     margin: 10px 5px 10px 1px;
     background-color:#003E3F;
     color:aliceblue;
-    
+    padding: 4px;
+    border: 4px inset darkgray;
+    border-radius: 4px;
 }
-.card {
+.button:active {
+    border: 4px outset darkgray;
+}
+
+.city {
     border-bottom: 2px solid black;
     
 }
 /* day box */
 .today {
-    height: 260px;
+    padding: 5px;
     border: 1px solid black;
     margin: 5px;
+    display: block;
+    background-color: #0C1446;
+    color:aliceblue
+    
 }
 
-.forcast {
-    margin: 5px;
+.forecast {
+    padding: 5px;
+    
+}
+.forecast div {
+    padding: 5px;
+    color: white;
+    background-color: #0C1446;
+}
+.day-cast {
+    margin-left:4px;
 }
