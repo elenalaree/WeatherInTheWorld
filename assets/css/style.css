@@ -36,10 +36,9 @@ header {
 .button:active {
     border: 4px outset darkgray;
 }
-d
+
 .city {
     border-bottom: 2px solid black;
-    
 }
 /* day box */
 .today {
