@@ -121,8 +121,10 @@ var colorUv = function(data){
               colorful.classList = "colorful-uvi yellow p-1 rounded";
             } else if(uvi > 5 && uvi < 8) {
               colorful.classList = "colorful-uvi orange p-1 rounded";
-            } else {
+            } else if(uvi > 7 && uvi < 11) {
               colorful.classList = "colorful-uvi red p-1 rounded";
+            } else {
+              colorful.classList = "colorful-uvi fuchsia p-1 rounded";
             }
           };
 // var colorUv = function(data){

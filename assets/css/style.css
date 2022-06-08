@@ -36,6 +36,9 @@ header {
 .red{
     background-color: rgba(255, 0, 0, .5);
 }
+.fuchsia {
+    background-color: fuchsia;
+}
 .button {
     display: block;
     width: 100%;
