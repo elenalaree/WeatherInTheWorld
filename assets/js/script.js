@@ -48,7 +48,7 @@ var getWeatherInfo = function(city) {
         showWeather(data);
       });
     } else {
-      search.textarea = "Error: City Not found.";
+      search.placeholder = "Error: City Not found.";
     }
   })
   .catch(function(error) {
