@@ -5,7 +5,7 @@ var todayContainer = document.getElementById("today-container");
 var forecastContainer = document.getElementById("forecast-container");
 var cityBox = document.getElementById("city-box");
 var passCity = document.getElementsByClassName("searchCity");
-var colorful = document.getElementsByClassName("colorful-uvi");
+
 //save array
 var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
@@ -72,34 +72,48 @@ var showWeather = function(response){
     .then(function(resp) {
       if (resp.ok){
         resp.json().then(function(data) {
+
           //current weather information
-          //uvi colors
-          colorUv(data);
-          
-          
-
           var dt = new Date(data.current.dt * 1000);
-          todayContainer.innerHTML = `<h4 class="card-title p-2">${response.city.name} (${dt.toDateString()}) <img 
-        src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png" alt="${data.current.weather[0].description}"/></h2>
-        <p>Temp: ${data.current.temp}&deg;F</p>
-        <p>Wind: ${data.current.wind_speed} MPH</p>
-        <p>Humidity: ${data.current.humidity}%</p>
-        <p>UV Index: <span class="colorful-uvi">${data.current.uvi}</span></p>`;
-        //5 day forecast loop
 
-        forecastContainer.innerHTML = data.daily
-          .map((day, idx) => {
+          todayContainer.innerHTML = `<h4 class="card-title p-2">${response.city.name} (${dt.toDateString()}) <img 
+          src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png" alt="${data.current.weather[0].description}"/></h2>
+          <p>Temp: ${data.current.temp}&deg;F</p>
+          <p>Wind: ${data.current.wind_speed} MPH</p>
+          <p>Humidity: ${data.current.humidity}%</p>
+          <p>UV Index: <span id="colorful-uvi">${data.current.uvi}</span></p>`;
+          var colorful = document.getElementById("colorful-uvi");
+          //uvi colors
+          
+          var colorUv = function(){
+            var uvi = parseFloat(data.current.uvi);
+            console.log(colorful.textContent);
+            if(uvi <= 2){
+              colorful.classList = "colorful-uvi green p-1 rounded";
+            } else if(uvi > 2 && uvi < 6) {
+              colorful.classList = "colorful-uvi yellow p-1 rounded";
+            } else if(uvi > 5 && uvi < 8) {
+              colorful.classList = "colorful-uvi orange p-1 rounded";
+            } else {
+              colorful.classList = "colorful-uvi red p-1 rounded";
+            }
+          };
+          colorUv();
+
+          //5 day forecast loop
+          forecastContainer.innerHTML = data.daily
+            .map((day, idx) => {
               if (idx > 0 && idx < 6) {
                 var dt = new Date(day.dt * 1000);
                 return ` 
-                <div class="card">
+                  <div class="card">
                     <p>(${dt.toDateString()})</p>
                     <p> <img 
                     src="http://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}"/></p>
                     <p>Temp: ${day.temp.max}&deg;F</p>
                     <p>Wind: ${day.wind_speed}mph</p>
                     <p>Humidity: ${day.humidity}%</p>
-                </div>`
+                  </div>`
               }
         }).join('')
       }
@@ -107,20 +121,20 @@ var showWeather = function(response){
   });
 }
 
-//UVI Color Coding
-var colorUv = function(data){
-  var uvi = parseInt(data.current.uvi);
-  console.log(uvi)
-  // if(uvi <= 2){
-  //   colorful.classList.add = "green";
-  // } else if(uvi > 2 && uvi < 6) {
-  //   colorful.classList.add= "yellow";
-  // } else if(uvi > 5 && uvi < 8) {
-  //   colorful.classList.add= "orange";
-  // } else {
-  //   colorful.classList.add = "red";
-  // }
-};
+// //UVI Color Coding
+// var colorUv = function(data){
+//   var uvi = parseFloat(data.current.uvi);
+//   console.log(colorful.textContent());
+//   if(uvi <= 2){
+//     colorful.classList = "colorful-uvi green";
+//   } else if(uvi > 2 && uvi < 6) {
+//     colorful.classList = "colorful-uvi yellow";
+//   } else if(uvi > 5 && uvi < 8) {
+//     colorful.classList = "colorful-uvi orange";
+//   } else {
+//     colorful.classList = "colorful-uvi red";
+//   }
+// };
 
 //save cities
 var saveCities = function(cityName) {
