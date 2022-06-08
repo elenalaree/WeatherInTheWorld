@@ -75,43 +75,32 @@ var showWeather = function(response){
 
           //current weather information
           var dt = new Date(data.current.dt * 1000);
-
+          var windCurrent = parseInt(data.current.wind_speed);
+          var tempCurrent = parseInt(data.current.temp);
           todayContainer.innerHTML = `<h4 class="card-title p-2">${response.city.name} (${dt.toDateString()}) <img 
           src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png" alt="${data.current.weather[0].description}"/></h2>
-          <p>Temp: ${data.current.temp}&deg;F</p>
-          <p>Wind: ${data.current.wind_speed} MPH</p>
+          <p>Temp: ${tempCurrent}&deg;F</p>
+          <p>Wind: ${windCurrent} MPH</p>
           <p>Humidity: ${data.current.humidity}%</p>
           <p>UV Index: <span id="colorful-uvi">${data.current.uvi}</span></p>`;
-          var colorful = document.getElementById("colorful-uvi");
           //uvi colors
-          
-          var colorUv = function(){
-            var uvi = parseFloat(data.current.uvi);
-            console.log(colorful.textContent);
-            if(uvi <= 2){
-              colorful.classList = "colorful-uvi green p-1 rounded";
-            } else if(uvi > 2 && uvi < 6) {
-              colorful.classList = "colorful-uvi yellow p-1 rounded";
-            } else if(uvi > 5 && uvi < 8) {
-              colorful.classList = "colorful-uvi orange p-1 rounded";
-            } else {
-              colorful.classList = "colorful-uvi red p-1 rounded";
-            }
-          };
-          colorUv();
 
+          colorUv(data);
           //5 day forecast loop
+          
           forecastContainer.innerHTML = data.daily
             .map((day, idx) => {
               if (idx > 0 && idx < 6) {
+                var wind = parseInt(day.wind_speed);
+                var temp = parseInt(day.temp.max);
                 var dt = new Date(day.dt * 1000);
                 return ` 
                   <div class="card">
                     <p>(${dt.toDateString()})</p>
                     <p> <img 
                     src="http://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}"/></p>
-                    <p>Temp: ${day.temp.max}&deg;F</p>
-                    <p>Wind: ${day.wind_speed}mph</p>
+                    <p>Temp: ${temp}&deg;F</p>
+                    <p>Wind: ${wind}mph</p>
                     <p>Humidity: ${day.humidity}%</p>
                   </div>`
               }
@@ -122,6 +111,20 @@ var showWeather = function(response){
 }
 
 // //UVI Color Coding
+var colorUv = function(data){
+            var uvi = parseFloat(data.current.uvi);
+            var colorful = document.getElementById("colorful-uvi");
+            
+            if(uvi <= 2){
+              colorful.classList = "colorful-uvi green p-1 rounded";
+            } else if(uvi > 2 && uvi < 6) {
+              colorful.classList = "colorful-uvi yellow p-1 rounded";
+            } else if(uvi > 5 && uvi < 8) {
+              colorful.classList = "colorful-uvi orange p-1 rounded";
+            } else {
+              colorful.classList = "colorful-uvi red p-1 rounded";
+            }
+          };
 // var colorUv = function(data){
 //   var uvi = parseFloat(data.current.uvi);
 //   console.log(colorful.textContent());
