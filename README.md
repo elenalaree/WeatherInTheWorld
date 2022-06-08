@@ -6,4 +6,4 @@ When a city is searched, the weather is displayed to the side with a day card an
 
 
 
-[Image of Page](.\assets\images\WeatherScreenShot.png)
+[Image of Page](./assets/images/WeatherScreenShot.png)
