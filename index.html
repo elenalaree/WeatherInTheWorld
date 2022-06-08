@@ -12,8 +12,8 @@
     <header>
         <h1>Weather DashBoard</h1>
     </header>
-    <main class="d-flex">
-        <div class="col-12 col-sm-3">
+    <main class="d-flex flex-wrap">
+        <div class=" col-12 col-md-3">
             <div class="card city">
                 <h3 class="card-header">Search for a City:</h3>
                 <form id="user-form" class="card-body">
@@ -22,12 +22,12 @@
                 <button type="submit" class="button find-city">Check Weather</button>
                 </form>
             </div>
-            <div id="city-box"></div>
+            <div id="city-box" class="col-12 flex-wrap d-flex text-center"></div>
             
         </div>
         
-        <div class="col-12 col-sm-9">
-            <div id="today-container" class="today row">
+        <div class="col-12 col-md-9  weather">
+            <div id="today-container" class="today d-block row">
                     
             </div>
             <div class ="day-cast"><h3>5-Day Forecast:</h3></div>
